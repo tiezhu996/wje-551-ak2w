@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { InventoryAlertLevel, ShipmentStatus, SupplierStatus } from '../../constants/enums.js';
 import { PERMISSIONS } from '../../constants/permissions.js';
-import type { AuditLog, Inventory, Shipment, Supplier, User, Warehouse } from '../../types/index.js';
+import type { AuditLog, Inventory, Shipment, Supplier, TransferOrder, User, Warehouse } from '../../types/index.js';
 
 const now = () => new Date().toISOString();
 
@@ -104,6 +104,8 @@ export const shipments: Shipment[] = Array.from({ length: 15 }, (_, index) => {
     updatedAt: createdAt,
   };
 });
+
+export const transferOrders: TransferOrder[] = [];
 
 export const auditLogs: AuditLog[] = [
   { id: uuid(), userId: 'u-admin', username: '系统管理员', action: 'CREATE', module: 'SUPPLIER', targetId: 'sup-1', targetName: '远航包装', detail: { source: 'seed' }, ip: '127.0.0.1', createdAt: now() },

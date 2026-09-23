@@ -6,7 +6,7 @@
 
 - 供应链总览仪表盘：在途、待签收、低库存、活跃供应商、状态分布与预警列表。
 - 供应商管理：搜索筛选、审核、评分、详情与关联运单。
-- 库存管理：仓库维度库存查询、入库、出库、调拨、盘点和安全库存预警。
+- 库存管理：仓库维度库存查询、入库、出库、仓库间待接收调拨单（源仓提交即扣减在途、目标仓确认才入库、接收前可撤销）、盘点和安全库存预警。
 - 运单追踪：运单列表、状态流转、发货、在途、签收自动入库、异常和取消。
 - 横切能力：JWT 登录、角色权限、前端路由守卫、按钮级 `v-permission`、统一异常处理、审计日志。
 
@@ -157,6 +157,19 @@ JWT_EXPIRES_IN=7d
 | 前端页面 | frontend/src/pages/Inventory.vue |
 | 前端页面 | frontend/src/pages/Dashboard.vue |
 | 数据库迁移 | database/migrations/001_initial.sql |
+
+### TransferStatus
+
+| 位置 | 文件路径 |
+|------|---------|
+| 后端枚举定义 | backend/src/constants/enums.ts |
+| 后端类型 | backend/src/types/index.ts |
+| 后端服务 | backend/src/services/inventory.service.ts |
+| 后端控制器 | backend/src/controllers/inventory.controller.ts |
+| 前端枚举定义 | frontend/src/constants/enums.ts |
+| 前端类型 | frontend/src/types/inventory.d.ts |
+| 前端组件 | frontend/src/components/common/StatusBadge.vue |
+| 前端页面 | frontend/src/pages/Inventory.vue |
 
 ## License
 
