@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import { InventoryAlertLevel, ShipmentStatus, SupplierStatus } from '../../constants/enums.js';
+import { InventoryAlertLevel, ShipmentStatus, SupplierStatus, TransferStatus } from '../../constants/enums.js';
 import { PERMISSIONS } from '../../constants/permissions.js';
-import type { AuditLog, Inventory, Shipment, Supplier, User, Warehouse } from '../../types/index.js';
+import type { AuditLog, Inventory, Shipment, Supplier, TransferOrder, User, Warehouse } from '../../types/index.js';
 
 const now = () => new Date().toISOString();
 
@@ -104,6 +104,52 @@ export const shipments: Shipment[] = Array.from({ length: 15 }, (_, index) => {
     updatedAt: createdAt,
   };
 });
+
+export const transferOrders: TransferOrder[] = [
+  {
+    id: 'trf-1',
+    orderNo: 'TRF-20260610-0001',
+    sourceWarehouseId: 'wh-east',
+    targetWarehouseId: 'wh-south',
+    skuId: 'SKU-1000',
+    skuName: '轴承组件',
+    quantity: 20,
+    status: TransferStatus.IN_TRANSIT,
+    createdBy: '仓库经理',
+    createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    updatedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+  },
+  {
+    id: 'trf-2',
+    orderNo: 'TRF-20260608-0002',
+    sourceWarehouseId: 'wh-south',
+    targetWarehouseId: 'wh-north',
+    skuId: 'SKU-1002',
+    skuName: '温控芯片',
+    quantity: 30,
+    status: TransferStatus.RECEIVED,
+    createdBy: '仓库经理',
+    receivedBy: '仓库经理',
+    receivedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 4 * 86400000).toISOString(),
+    updatedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+  },
+  {
+    id: 'trf-3',
+    orderNo: 'TRF-20260605-0003',
+    sourceWarehouseId: 'wh-east',
+    targetWarehouseId: 'wh-north',
+    skuId: 'SKU-1001',
+    skuName: '包装纸箱',
+    quantity: 10,
+    status: TransferStatus.CANCELLED,
+    createdBy: '仓库经理',
+    cancelledBy: '仓库经理',
+    cancelledAt: new Date(Date.now() - 5 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 6 * 86400000).toISOString(),
+    updatedAt: new Date(Date.now() - 5 * 86400000).toISOString(),
+  },
+];
 
 export const auditLogs: AuditLog[] = [
   { id: uuid(), userId: 'u-admin', username: '系统管理员', action: 'CREATE', module: 'SUPPLIER', targetId: 'sup-1', targetName: '远航包装', detail: { source: 'seed' }, ip: '127.0.0.1', createdAt: now() },

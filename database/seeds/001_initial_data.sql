@@ -34,3 +34,8 @@ INSERT INTO shipment_items (id, shipment_id, sku_id, sku_name, quantity) VALUES
 ('si-1', 'ship-1', 'SKU-1000', '轴承组件', 20),
 ('si-2', 'ship-2', 'SKU-1001', '包装纸箱', 60),
 ('si-3', 'ship-3', 'SKU-1002', '温控芯片', 15);
+
+INSERT INTO transfer_orders (id, order_no, source_warehouse_id, target_warehouse_id, sku_id, sku_name, quantity, status, created_by, received_by, cancelled_by, received_at, cancelled_at, created_at, updated_at) VALUES
+('trf-1', 'TRF-20260610-0001', 'wh-east', 'wh-south', 'SKU-1000', '轴承组件', 20, 'IN_TRANSIT', '仓库经理', NULL, NULL, NULL, NULL, DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 2 DAY)),
+('trf-2', 'TRF-20260608-0002', 'wh-south', 'wh-north', 'SKU-1002', '温控芯片', 30, 'RECEIVED', '仓库经理', '仓库经理', NULL, DATE_SUB(NOW(), INTERVAL 3 DAY), NULL, DATE_SUB(NOW(), INTERVAL 4 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY)),
+('trf-3', 'TRF-20260605-0003', 'wh-east', 'wh-north', 'SKU-1001', '包装纸箱', 10, 'CANCELLED', '仓库经理', NULL, '仓库经理', NULL, DATE_SUB(NOW(), INTERVAL 5 DAY), DATE_SUB(NOW(), INTERVAL 6 DAY), DATE_SUB(NOW(), INTERVAL 5 DAY));

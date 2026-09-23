@@ -11,5 +11,8 @@ inventoryRoutes.get('/', requirePermission(PERMISSIONS.INVENTORY_READ), (req, re
 inventoryRoutes.post('/inbound', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.inbound(req, res));
 inventoryRoutes.post('/outbound', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.outbound(req, res));
 inventoryRoutes.post('/transfer', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.transfer(req, res));
+inventoryRoutes.get('/transfers', requirePermission(PERMISSIONS.INVENTORY_READ), (req, res) => inventoryController.transfers(req, res));
+inventoryRoutes.post('/transfers/:id/receive', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.receiveTransfer(req, res));
+inventoryRoutes.post('/transfers/:id/cancel', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.cancelTransfer(req, res));
 inventoryRoutes.post('/check', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.check(req, res));
 inventoryRoutes.put('/:id/safety-stock', requirePermission(PERMISSIONS.INVENTORY_WRITE), (req, res) => inventoryController.safety(req, res));

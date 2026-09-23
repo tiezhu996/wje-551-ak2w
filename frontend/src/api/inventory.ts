@@ -1,12 +1,15 @@
 import { request } from './request';
-import type { Inventory, Warehouse } from '../types/inventory';
+import type { Inventory, TransferOrder, Warehouse } from '../types/inventory';
 
 export const inventoryApi = {
   warehouses: () => request.get<Warehouse[]>('/warehouses'),
   list: (params?: Record<string, string>) => request.get<Inventory[]>('/inventory', { params }),
   inbound: (payload: unknown) => request.post('/inventory/inbound', payload),
   outbound: (payload: unknown) => request.post('/inventory/outbound', payload),
-  transfer: (payload: unknown) => request.post('/inventory/transfer', payload),
+  transfer: (payload: unknown) => request.post<TransferOrder>('/inventory/transfer', payload),
+  transfers: (params?: Record<string, string>) => request.get<TransferOrder[]>('/inventory/transfers', { params }),
+  receiveTransfer: (id: string) => request.post<TransferOrder>(`/inventory/transfers/${id}/receive`),
+  cancelTransfer: (id: string) => request.post<TransferOrder>(`/inventory/transfers/${id}/cancel`),
   check: (payload: unknown) => request.post('/inventory/check', payload),
   safety: (id: string, safetyStock: number) => request.put(`/inventory/${id}/safety-stock`, { safetyStock }),
 };

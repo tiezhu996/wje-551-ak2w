@@ -1,4 +1,4 @@
-import { InventoryAlertLevel, ShipmentStatus, SupplierStatus } from '../constants/enums.js';
+import { InventoryAlertLevel, ShipmentStatus, SupplierStatus, TransferStatus } from '../constants/enums.js';
 
 export type RoleCode = 'ADMIN' | 'PURCHASE_MANAGER' | 'WAREHOUSE_MANAGER' | 'VIEWER';
 
@@ -85,6 +85,24 @@ export interface TimelineEvent {
   operator: string;
   note: string;
   createdAt: string;
+}
+
+export interface TransferOrder {
+  id: string;
+  orderNo: string;
+  sourceWarehouseId: string;
+  targetWarehouseId: string;
+  skuId: string;
+  skuName: string;
+  quantity: number;
+  status: TransferStatus;
+  createdBy: string;
+  receivedBy?: string;
+  cancelledBy?: string;
+  receivedAt?: string;
+  cancelledAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface AuditLog {

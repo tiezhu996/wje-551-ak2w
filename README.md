@@ -7,6 +7,7 @@
 - 供应链总览仪表盘：在途、待签收、低库存、活跃供应商、状态分布与预警列表。
 - 供应商管理：搜索筛选、审核、评分、详情与关联运单。
 - 库存管理：仓库维度库存查询、入库、出库、调拨、盘点和安全库存预警。
+- 仓库间调拨：调拨单采用"待接收"模式——源仓提交后立即扣减并显示在途，目标仓确认接收后才入库；接收前源仓可撤销并回滚数量；源仓不足、目标仓停用或重复确认时两端数量均不变；创建、接收、撤销均记录审计日志。
 - 运单追踪：运单列表、状态流转、发货、在途、签收自动入库、异常和取消。
 - 横切能力：JWT 登录、角色权限、前端路由守卫、按钮级 `v-permission`、统一异常处理、审计日志。
 
@@ -157,6 +158,25 @@ JWT_EXPIRES_IN=7d
 | 前端页面 | frontend/src/pages/Inventory.vue |
 | 前端页面 | frontend/src/pages/Dashboard.vue |
 | 数据库迁移 | database/migrations/001_initial.sql |
+
+### TransferStatus
+
+| 位置 | 文件路径 |
+|------|---------|
+| 后端枚举定义 | backend/src/constants/enums.ts |
+| 后端实体 | backend/src/models/transfer-order.entity.ts |
+| 后端类型 | backend/src/types/index.ts |
+| 后端服务 | backend/src/services/inventory.service.ts |
+| 后端控制器 | backend/src/controllers/inventory.controller.ts |
+| 后端路由 | backend/src/routes/inventory.routes.ts |
+| 后端种子数据 | backend/src/database/seeds/initial.ts |
+| 前端枚举定义 | frontend/src/constants/enums.ts |
+| 前端类型 | frontend/src/types/inventory.d.ts |
+| 前端组件 | frontend/src/components/common/StatusBadge.vue |
+| 前端页面 | frontend/src/pages/Inventory.vue |
+| 前端状态管理 | frontend/src/stores/inventoryStore.ts |
+| 数据库迁移 | database/migrations/001_initial.sql |
+| 种子数据 | database/seeds/001_initial_data.sql |
 
 ## License
 

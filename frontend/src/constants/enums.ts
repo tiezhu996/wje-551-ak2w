@@ -41,3 +41,15 @@ export const InventoryAlertLevelLabel: Record<InventoryAlertLevel, string> = {
   [InventoryAlertLevel.LOW]: '低库存',
   [InventoryAlertLevel.CRITICAL]: '严重不足',
 };
+
+export enum TransferStatus {
+  IN_TRANSIT = 'IN_TRANSIT',
+  RECEIVED = 'RECEIVED',
+  CANCELLED = 'CANCELLED',
+}
+
+export const TransferStatusLabel: Record<TransferStatus, string> = {
+  [TransferStatus.IN_TRANSIT]: '在途',
+  [TransferStatus.RECEIVED]: '已接收',
+  [TransferStatus.CANCELLED]: '已撤销',
+};

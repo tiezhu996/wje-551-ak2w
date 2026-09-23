@@ -8,7 +8,10 @@ export class InventoryController {
   list(req: Request, res: Response) { res.json(ok(inventoryService.list(req.query as Record<string, string | undefined>))); }
   inbound(req: Request, res: Response) { res.json(ok(inventoryService.inbound(req.body, resLocals(req).user))); }
   outbound(req: Request, res: Response) { res.json(ok(inventoryService.outbound(req.body, resLocals(req).user))); }
-  transfer(req: Request, res: Response) { res.json(ok(inventoryService.transfer(req.body, resLocals(req).user))); }
+  transfer(req: Request, res: Response) { res.json(ok(inventoryService.createTransfer(req.body, resLocals(req).user))); }
+  transfers(req: Request, res: Response) { res.json(ok(inventoryService.listTransfers(req.query as Record<string, string | undefined>))); }
+  receiveTransfer(req: Request, res: Response) { res.json(ok(inventoryService.receiveTransfer(req.params.id, resLocals(req).user))); }
+  cancelTransfer(req: Request, res: Response) { res.json(ok(inventoryService.cancelTransfer(req.params.id, resLocals(req).user))); }
   check(req: Request, res: Response) { res.json(ok(inventoryService.check(req.body, resLocals(req).user))); }
   safety(req: Request, res: Response) { res.json(ok(inventoryService.updateSafetyStock(req.params.id, Number(req.body.safetyStock), resLocals(req).user))); }
 }

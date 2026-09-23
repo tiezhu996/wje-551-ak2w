@@ -105,6 +105,28 @@ CREATE TABLE shipment_items (
   INDEX idx_shipment_items_shipment_id (shipment_id)
 );
 
+CREATE TABLE transfer_orders (
+  id VARCHAR(36) PRIMARY KEY,
+  order_no VARCHAR(32) NOT NULL,
+  source_warehouse_id VARCHAR(36) NOT NULL,
+  target_warehouse_id VARCHAR(36) NOT NULL,
+  sku_id VARCHAR(64) NOT NULL,
+  sku_name VARCHAR(128) NOT NULL,
+  quantity INT NOT NULL,
+  status ENUM('IN_TRANSIT','RECEIVED','CANCELLED') NOT NULL DEFAULT 'IN_TRANSIT',
+  created_by VARCHAR(64) NOT NULL,
+  received_by VARCHAR(64),
+  cancelled_by VARCHAR(64),
+  received_at DATETIME,
+  cancelled_at DATETIME,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY uk_transfer_orders_order_no (order_no),
+  INDEX idx_transfer_orders_source_warehouse_id (source_warehouse_id),
+  INDEX idx_transfer_orders_target_warehouse_id (target_warehouse_id),
+  INDEX idx_transfer_orders_status (status)
+);
+
 CREATE TABLE audit_logs (
   id VARCHAR(36) PRIMARY KEY,
   user_id VARCHAR(36) NOT NULL,

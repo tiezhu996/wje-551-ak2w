@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { InventoryAlertLevelLabel, ShipmentStatusLabel, SupplierStatusLabel } from '../../constants/enums';
+import { InventoryAlertLevelLabel, ShipmentStatusLabel, SupplierStatusLabel, TransferStatusLabel } from '../../constants/enums';
 
-const props = defineProps<{ value: string }>();
+const props = defineProps<{ value: string; kind?: 'transfer' }>();
 
 const labels: Record<string, string> = { ...ShipmentStatusLabel, ...SupplierStatusLabel, ...InventoryAlertLevelLabel };
+const text = computed(() => (props.kind === 'transfer' ? TransferStatusLabel[props.value as keyof typeof TransferStatusLabel] : labels[props.value]) ?? props.value);
 const tone = computed(() => ({
   ACTIVE: 'ok',
   DELIVERED: 'ok',
+  RECEIVED: 'ok',
   NORMAL: 'ok',
   LOW: 'warn',
   SHIPPED: 'blue',
@@ -23,7 +25,7 @@ const tone = computed(() => ({
 </script>
 
 <template>
-  <span class="badge" :class="tone">{{ labels[value] ?? value }}</span>
+  <span class="badge" :class="tone">{{ text }}</span>
 </template>
 
 <style scoped>
